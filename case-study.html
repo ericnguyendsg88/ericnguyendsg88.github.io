@@ -6,74 +6,93 @@
   <title>Requirements case study — Hao (Eric) Nguyen</title>
   <meta name="description" content="Short, anonymised case study: scoping an AI monitoring MVP for a payments-infrastructure client.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d1d1f'/%3E%3Ctext x='32' y='43' font-family='Helvetica' font-weight='bold' font-size='32' text-anchor='middle' fill='white'%3EE%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    :root { --bg: #ffffff; --ink: #1d1d1f; --muted: #6e6e73; --line: #e5e5e7; --link: #0066cc; color-scheme: light; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #111112; --ink: #f2f2f4; --muted: #a1a1a6; --line: #2c2c2e; --link: #4da3ff; color-scheme: dark; } }
+    /* Same PostHog look as the resume page. */
+    :root { --bg: #eeefe9; --card: #ffffff; --ink: #151515; --muted: #65675e; --line: #d0d1c9; --edge: #b6b7af; --accent: #f54e00; --link: #1d4aff; color-scheme: light; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1d1f27; --card: #262833; --ink: #eeefe9; --muted: #a3a59c; --line: #3c3f4b; --edge: #2b2d38; --accent: #f7a501; --link: #8ea2ff; color-scheme: dark; } }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-    main { max-width: 680px; margin: 0 auto; padding: 56px 22px 64px; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.6 "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    main { max-width: 760px; margin: 0 auto; padding: 40px 20px 56px; }
     a { color: var(--link); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    h1 { font-size: 34px; line-height: 1.15; letter-spacing: -.02em; margin: 28px 0 0; font-weight: 700; }
-    .role { color: var(--muted); margin: 4px 0 0; font-size: 17px; }
-    .anon { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
-    h2 { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .btn { display: inline-flex; align-items: center; padding: 6px 12px; font-family: inherit; font-weight: 600; font-size: 14px; line-height: 1.4; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 2px 0 var(--edge); transition: transform .08s, box-shadow .08s; }
+    .btn:hover { text-decoration: none; border-color: var(--edge); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 0 0 var(--edge); }
+    h1 { font-size: 30px; line-height: 1.2; letter-spacing: -.01em; margin: 26px 0 0; font-weight: 700; }
+    .role { margin: 6px 0 0; font-size: 16px; }
+    .anon { color: var(--muted); font-size: 14px; margin: 8px 0 22px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; margin-bottom: 14px; }
+    h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
     p { margin: 0 0 10px; }
+    .card > p:last-child { margin-bottom: 0; }
     ul { margin: 4px 0 0; padding-left: 18px; }
     li { margin-bottom: 6px; }
-    .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .nums b { display: block; font-size: 28px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
-    .nums span { color: var(--muted); font-size: 14px; }
-    @media (max-width: 480px) { .nums { grid-template-columns: 1fr 1fr; gap: 16px; } }
-    .req { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
-    .req code { font: 500 13px ui-monospace, "SF Mono", Menlo, monospace; color: var(--muted); }
-    .req p { margin: 4px 0 0; }
-    .req small { color: var(--muted); font-size: 14px; }
-    footer { margin-top: 44px; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    li::marker { color: var(--muted); }
+    .nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .nums div { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+    .nums span { display: block; font-weight: 500; font-size: 14px; }
+    .nums b { display: block; font-size: 30px; line-height: 1.15; font-weight: 700; margin-top: 8px; }
+    @media (max-width: 560px) { .nums { grid-template-columns: 1fr 1fr; } .card { padding: 16px; } }
+    .req { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px; padding: 12px 14px; }
+    .req code { font: 500 13px "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; color: var(--accent); }
+    .req p { margin: 4px 0 0; font-weight: 500; }
+    .req small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; }
+    footer { margin-top: 22px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    @media print { :root { --bg: #fff; --card: #fff; } .btn { border: 0; box-shadow: none; padding: 0; } }
   </style>
   <script src="analytics.js" defer></script>
 </head>
 <body>
   <main>
-    <a href="index.html">← Hao (Eric) Nguyen</a>
+    <a class="btn" href="index.html">← Hao (Eric) Nguyen</a>
     <h1>Requirements case study</h1>
     <p class="role">AI monitoring MVP for a payments-infrastructure client</p>
     <p class="anon">Anonymised. Client details are removed, and the wording is rewritten.</p>
 
-    <h2>Summary</h2>
-    <p>The client wanted AI to watch high-value settlement: project each participant's liquidity during the day, and catch unusual transaction behaviour. There was no fixed scope, no production data and no final infrastructure design. I turned that into an MVP the client, developers and data scientists could all test against.</p>
-
-    <h2>At a glance</h2>
     <div class="nums">
-      <div><b>3</b><span>workshops</span></div>
-      <div><b>34</b><span>requirements</span></div>
-      <div><b>68</b><span>user stories</span></div>
-      <div><b>36</b><span>UAT test cases</span></div>
+      <div><span>Workshops</span><b>3</b></div>
+      <div><span>Requirements</span><b>34</b></div>
+      <div><span>User stories</span><b>68</b></div>
+      <div><span>UAT test cases</span><b>36</b></div>
     </div>
 
-    <h2>My role</h2>
-    <ul>
-      <li>Ran requirements workshops with the client's product and engineering teams.</li>
-      <li>Kept the requirements register linked to the functional spec by ID.</li>
-      <li>Wrote the user stories and UAT test cases, and a data guideline for the critical datasets.</li>
-    </ul>
+    <section class="card">
+      <h2>Summary</h2>
+      <p>The client wanted AI to watch high-value settlement: project each participant's liquidity during the day, and catch unusual transaction behaviour. There was no fixed scope, no production data and no final infrastructure design. I turned that into an MVP the client, developers and data scientists could all test against.</p>
+    </section>
 
-    <h2>How I scoped it</h2>
-    <ul>
-      <li><b>Two use cases, in order.</b> Liquidity projection first, anomaly detection second.</li>
-      <li><b>Batch, not real-time.</b> Real-time processing went on a "won't have" list the client signed.</li>
-      <li><b>Advisory only.</b> Nothing the system produces triggers a settlement or funding action.</li>
-      <li><b>Five anomaly types.</b> Detection was narrowed to the highest-priority patterns, each with a UAT scenario.</li>
-    </ul>
+    <section class="card">
+      <h2>My role</h2>
+      <ul>
+        <li>Ran requirements workshops with the client's product and engineering teams.</li>
+        <li>Kept the requirements register linked to the functional spec by ID.</li>
+        <li>Wrote the user stories and UAT test cases, and a data guideline for the critical datasets.</li>
+      </ul>
+    </section>
 
-    <h2>Example requirement</h2>
-    <div class="req">
-      <code>LIQ-03 · Must</code>
-      <p>Flag a participant when their projected worst case breaches the threshold.</p>
-      <small>Accepted when every monitored participant gets a worst-case value each batch, and every breach raises a flag with the reason.</small>
-    </div>
+    <section class="card">
+      <h2>How I scoped it</h2>
+      <ul>
+        <li><b>Two use cases, in order.</b> Liquidity projection first, anomaly detection second.</li>
+        <li><b>Batch, not real-time.</b> Real-time processing went on a "won't have" list the client signed.</li>
+        <li><b>Advisory only.</b> Nothing the system produces triggers a settlement or funding action.</li>
+        <li><b>Five anomaly types.</b> Detection was narrowed to the highest-priority patterns, each with a UAT scenario.</li>
+      </ul>
+    </section>
 
-    <footer><a href="index.html">← Back to resume</a><a href="mailto:ericnguyendsg@gmail.com">Ask me about this project</a></footer>
+    <section class="card">
+      <h2>Example requirement</h2>
+      <div class="req">
+        <code>LIQ-03 · Must</code>
+        <p>Flag a participant when their projected worst case breaches the threshold.</p>
+        <small>Accepted when every monitored participant gets a worst-case value each batch, and every breach raises a flag with the reason.</small>
+      </div>
+    </section>
+
+    <footer><a class="btn" href="index.html">← Back to resume</a><a class="btn" href="mailto:ericnguyendsg@gmail.com">Ask me about this project</a></footer>
   </main>
 </body>
 </html>
