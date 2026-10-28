@@ -18,6 +18,9 @@
     h1 { font-size: 34px; line-height: 1.15; letter-spacing: -.02em; margin: 0; font-weight: 700; }
     .role { color: var(--muted); margin: 4px 0 14px; font-size: 17px; }
     .contact { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 15px; }
+    .jump { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; font-size: 14px; }
+    .jump a { color: var(--muted); }
+    .jump a:hover { color: var(--link); }
     h2 { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 44px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     p { margin: 0 0 10px; }
     .item { margin-bottom: 22px; }
@@ -56,7 +59,7 @@
       li { margin-bottom: 2px; }
       .skills li { margin-bottom: 0; }
       .app img { width: 30px; height: 30px; border-radius: 7px; }
-      .hm, .no-print, footer { display: none; }
+      .hm, .no-print, .jump, footer { display: none; }
       a[href^="http"]::after { content: ""; }
     }
   </style>
@@ -74,12 +77,21 @@
       <a class="no-print" href="#products">Apps</a>
       <a class="no-print" href="Hao-Nguyen-Resume.pdf" target="_blank" rel="noopener">Resume</a>
     </div>
+    <nav class="jump" aria-label="Sections">
+      <a href="#summary">Summary</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#products">Products</a>
+      <a href="#github">GitHub</a>
+      <a href="#education">Education</a>
+      <a href="#wishlist">Wishlist</a>
+    </nav>
 
-    <h2>Summary</h2>
+    <h2 id="summary">Summary</h2>
     <p>Business analyst on systems that move money: award disbursements for a polytechnic's financial aid module, and AI monitoring for NETS' SGD MEPS+ (RTGS) settlement transactions. I work from stakeholder workshops through to acceptance, and I build my own products with AI tools.</p>
     <p>Passionate about building user-centric products that deliver delight and solve real problems. I use metrics and real data to drive decisions, and I work across teams and roles to get things shipped.</p>
 
-    <h2>Skills</h2>
+    <h2 id="skills">Skills</h2>
     <ul class="skills">
       <li>Requirements workshops and FSDs</li>
       <li>User stories, backlog and sprint planning</li>
@@ -93,7 +105,7 @@
       <li>English (fluent), Vietnamese (native)</li>
     </ul>
 
-    <h2>Experience</h2>
+    <h2 id="experience">Experience</h2>
     <div class="item">
       <div class="head"><b>Business Analyst, AvePoint</b><span>Nov 2025 – Present</span></div>
       <p class="sub">Financial aid module for a Singapore polytechnic</p>
@@ -146,17 +158,17 @@
       <p style="margin:2px 0 0" class="note">Also built: EarlyBird (iOS alarm with a streak) · ENotes (Mac meeting recorder)</p>
     </div>
 
-    <h2>GitHub</h2>
+    <h2 id="github">GitHub</h2>
     <p><span id="p-total">2,124</span> commits on <span id="p-days">116</span> days in the last 12 months, across 17 repositories. <a href="https://github.com/ericnguyendsg88">View profile →</a></p>
     <div class="hm" aria-hidden="true"><div class="heat-inner"><div class="heat-months" id="heat-months"></div><div class="heat" id="heat"></div></div></div>
 
-    <h2>Education</h2>
+    <h2 id="education">Education</h2>
     <div class="item">
       <div class="head"><b>New York University · BA, Marketing and Business</b><span>GPA 3.5</span></div>
       <p style="margin:2px 0 0">Minor in Business of Entertainment Industries. Gallatin Merit Scholarship, Drexel's Dean Scholarship. TOEFL 110.</p>
     </div>
 
-    <h2 class="no-print">Wishlist</h2>
+    <h2 class="no-print" id="wishlist">Wishlist</h2>
     <div class="item no-print">
       <div class="head"><b><a href="https://www.xteink.com/products/xteink-x4-classic-pocket-ereader">Xteink X4</a></b><span>On my wishlist</span></div>
       <p style="margin:2px 0 0">A wallet-sized e-ink reader that snaps magnetically onto the back of a phone.</p>
