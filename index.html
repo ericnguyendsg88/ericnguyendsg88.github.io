@@ -10,7 +10,8 @@
     :root { --bg: #ffffff; --ink: #1d1d1f; --muted: #6e6e73; --line: #e5e5e7; --link: #0066cc; color-scheme: light; }
     @media (prefers-color-scheme: dark) { :root { --bg: #111112; --ink: #f2f2f4; --muted: #a1a1a6; --line: #2c2c2e; --link: #4da3ff; color-scheme: dark; } }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+    @media (min-width: 1040px) { html { scroll-padding-top: 24px; } }
     body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
     main { max-width: 680px; margin: 0 auto; padding: 72px 22px 64px; }
     a { color: var(--link); text-decoration: none; }
@@ -18,9 +19,17 @@
     h1 { font-size: 34px; line-height: 1.15; letter-spacing: -.02em; margin: 0; font-weight: 700; }
     .role { color: var(--muted); margin: 4px 0 14px; font-size: 17px; }
     .contact { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 15px; }
-    .jump { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; font-size: 14px; }
-    .jump a { color: var(--muted); }
-    .jump a:hover { color: var(--link); }
+    /* Section links: a sticky bar across the top on narrow screens, a vertical list beside the page on wide ones. */
+    .jump { position: sticky; top: 0; z-index: 5; display: flex; gap: 20px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; margin: 16px -22px 0; padding: 0 22px; background: var(--bg); border-bottom: 1px solid var(--line); font-size: 14px; }
+    .jump::-webkit-scrollbar { display: none; }
+    .jump a { flex: none; padding: 11px 0 9px; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .jump a:hover { color: var(--ink); text-decoration: none; }
+    .jump a.on { color: var(--ink); font-weight: 500; border-bottom-color: var(--link); }
+    @media (min-width: 1040px) {
+      .jump { position: fixed; top: 78px; left: calc(50% - 340px - 164px); width: 140px; flex-direction: column; gap: 0; overflow: visible; margin: 0; padding: 0; background: none; border: 0; }
+      .jump a { padding: 5px 0 5px 14px; border-bottom: 0; margin: 0; border-left: 2px solid var(--line); }
+      .jump a.on { border-left-color: var(--link); }
+    }
     h2 { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 44px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     p { margin: 0 0 10px; }
     .item { margin-bottom: 22px; }
@@ -178,5 +187,29 @@
   </main>
   <script src="progress-data.js"></script>
   <script src="progress.js"></script>
+  <script>
+    // Mark the section link for the part of the page in view.
+    (function () {
+      var links = [].slice.call(document.querySelectorAll(".jump a"));
+      var heads = links.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+      // A clicked link stays lit even when its section is too near the page end to reach the top;
+      // scrolling by hand takes over again.
+      var picked = -1;
+      links.forEach(function (a, i) { a.addEventListener("click", function () { picked = i; update(); }); });
+      ["wheel", "touchmove", "keydown"].forEach(function (ev) {
+        window.addEventListener(ev, function () { picked = -1; }, { passive: true });
+      });
+      function update() {
+        var y = window.scrollY + 110, now = 0;
+        heads.forEach(function (h, i) { if (h && h.offsetTop <= y) now = i; });
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) now = links.length - 1;
+        if (picked >= 0) now = picked;
+        links.forEach(function (a, i) { a.classList.toggle("on", i === now); });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
 </body>
 </html>
