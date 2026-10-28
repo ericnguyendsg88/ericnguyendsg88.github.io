@@ -10,17 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* PostHog's look: warm grey page, white cards, hairline borders, 3D buttons, orange for what's active. */
+    /* PostHog's shapes (cards, 3D buttons, tabs) in the resume's own white, grey and blue. */
     :root {
-      --bg: #eeefe9; --card: #ffffff; --ink: #151515; --muted: #65675e; --line: #d0d1c9; --edge: #b6b7af;
-      --accent: #f54e00; --link: #1d4aff; --btn-ink: #151515;
-      --h1: #c7d2ff; --h2: #8ea2ff; --h3: #4d6bff; --h4: #1d4aff; color-scheme: light;
+      --bg: #ffffff; --card: #ffffff; --ink: #1d1d1f; --muted: #6e6e73; --line: #e5e5e7; --edge: #d2d2d7;
+      --accent: #0066cc; --accent-edge: #004c99; --link: #0066cc; --btn-ink: #1d1d1f;
+      --h1: #9ec5ff; --h2: #5a9cff; --h3: #1f6fe0; --h4: #0b3f8c; color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #1d1f27; --card: #262833; --ink: #eeefe9; --muted: #a3a59c; --line: #3c3f4b; --edge: #2b2d38;
-        --accent: #f7a501; --link: #8ea2ff; --btn-ink: #eeefe9;
-        --h1: #2b3570; --h2: #3a4fb3; --h3: #5d77ff; --h4: #9fb1ff; color-scheme: dark;
+        --bg: #111112; --card: #1c1c1e; --ink: #f2f2f4; --muted: #a1a1a6; --line: #2c2c2e; --edge: #3a3a3c;
+        --accent: #4da3ff; --accent-edge: #1f6fe0; --link: #4da3ff; --btn-ink: #f2f2f4;
+        --h1: #0b3f8c; --h2: #1f6fe0; --h3: #5a9cff; --h4: #9ec5ff; color-scheme: dark;
       }
     }
     * { box-sizing: border-box; }
@@ -38,8 +38,8 @@
     .btn:hover { text-decoration: none; border-color: var(--edge); }
     .btn:active { transform: translateY(2px); box-shadow: 0 0 0 var(--edge); }
     .btn svg { width: 15px; height: 15px; flex: none; }
-    .btn.primary { background: var(--accent); border-color: #b73a00; color: #fff; box-shadow: 0 2px 0 #b73a00; }
-    @media (prefers-color-scheme: dark) { .btn.primary { border-color: #b77b00; box-shadow: 0 2px 0 #b77b00; color: #151515; } }
+    .btn.primary { background: var(--accent); border-color: var(--accent-edge); color: #fff; box-shadow: 0 2px 0 var(--accent-edge); }
+    @media (prefers-color-scheme: dark) { .btn.primary { color: #111112; } }
     .btn.sm { padding: 3px 10px; font-size: 13px; }
 
     /* Tabs, like PostHog's: muted labels, the current one in orange with an underline. */
@@ -48,12 +48,6 @@
     .tabs a { flex: none; padding: 12px 0 10px; color: var(--muted); font-weight: 500; font-size: 15px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
     .tabs a:hover { color: var(--ink); text-decoration: none; }
     .tabs a.on { color: var(--accent); border-bottom-color: var(--accent); }
-
-    .kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
-    .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
-    .kpi span { display: block; font-weight: 500; font-size: 14px; }
-    .kpi b { display: block; font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; margin: 8px 0 4px; }
-    .kpi small { color: var(--muted); font-size: 13px; }
 
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; margin-bottom: 14px; }
     h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
@@ -72,7 +66,6 @@
     .app img { width: 44px; height: 44px; border-radius: 10px; flex: none; margin-top: 2px; }
     .app .btns { margin-top: 10px; gap: 6px; }
     .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 24px; margin: 0; padding-left: 18px; }
-    @media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpi:last-child { grid-column: span 2; } }
     @media (max-width: 560px) { main { padding-top: 32px; } .skills { grid-template-columns: 1fr; } .card { padding: 16px; } }
 
     .hm { --cell: 9px; overflow-x: auto; margin: 12px 0 0; }
@@ -81,7 +74,7 @@
     .heat { grid-template-rows: repeat(7, var(--cell)); grid-auto-flow: column; }
     .heat-months { font-size: 11px; color: var(--muted); height: 16px; }
     .heat i { display: block; width: var(--cell); height: var(--cell); border-radius: 2px; }
-    .l0 { background: var(--bg); } .l1 { background: var(--h1); } .l2 { background: var(--h2); } .l3 { background: var(--h3); } .l4 { background: var(--h4); }
+    .l0 { background: var(--line); } .l1 { background: var(--h1); } .l2 { background: var(--h2); } .l3 { background: var(--h3); } .l4 { background: var(--h4); }
     footer { margin-top: 26px; color: var(--muted); font-size: 13px; }
 
     @media print {
@@ -103,7 +96,7 @@
       li { margin-bottom: 2px; }
       .skills li { margin-bottom: 0; }
       .app img { width: 30px; height: 30px; border-radius: 7px; }
-      .tabs, .kpis, .hm, .no-print, footer { display: none; }
+      .tabs, .hm, .no-print, footer { display: none; }
     }
   </style>
   <script src="analytics.js" defer></script>
@@ -113,7 +106,7 @@
     <h1>Hao (Eric) Nguyen</h1>
     <p class="role">Business analyst moving into product ownership · Based in Singapore and Saigon</p>
     <div class="btns">
-      <a class="btn primary no-print" href="Hao-Nguyen-Resume.pdf" download><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13h10"/></svg>Download Resume</a>
+      <a class="btn primary no-print" href="Hao-Nguyen-Resume.pdf" target="_blank" rel="noopener">Resume</a>
       <a class="btn" href="mailto:ericnguyendsg@gmail.com">ericnguyendsg@gmail.com</a>
       <a class="btn" href="https://www.linkedin.com/in/hao-n-a6bb68102/">LinkedIn</a>
       <a class="btn" href="https://github.com/ericnguyendsg88">GitHub</a>
@@ -129,14 +122,6 @@
       <a href="#github">GitHub</a>
       <a href="#education">Education</a>
     </nav>
-
-    <div class="kpis">
-      <div class="kpi"><span>Apps shipped</span><b>3</b><small>iOS and Mac</small></div>
-      <div class="kpi"><span>Commits</span><b id="k-total">2,124</b><small>last 12 months</small></div>
-      <div class="kpi"><span>Active days</span><b id="k-days">116</b><small>across 17 repos</small></div>
-      <div class="kpi"><span>Requirements</span><b>34</b><small>68 stories · 36 UAT</small></div>
-      <div class="kpi"><span>Cohort rank</span><b>1st</b><small>BA trainee cohort</small></div>
-    </div>
 
     <section class="card" id="summary">
       <h2>Summary</h2>
@@ -240,11 +225,8 @@
   <script src="progress-data.js"></script>
   <script src="progress.js"></script>
   <script>
-    // Keep the KPI cards in step with the heatmap's own count, and light the tab for the section in view.
+    // Light the tab for the section in view.
     (function () {
-      var t = document.getElementById("p-total"), d = document.getElementById("p-days");
-      if (t) document.getElementById("k-total").textContent = t.textContent;
-      if (d) document.getElementById("k-days").textContent = d.textContent;
       var tabs = [].slice.call(document.querySelectorAll(".tabs a"));
       var sections = tabs.map(function (a) { return document.querySelector(a.getAttribute("href")); });
       function update() {
