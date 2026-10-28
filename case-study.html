@@ -7,10 +7,12 @@
   <meta name="description" content="Short, anonymised case study: scoping an AI monitoring MVP for a payments-infrastructure client.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d1d1f'/%3E%3Ctext x='32' y='43' font-family='Helvetica' font-weight='bold' font-size='32' text-anchor='middle' fill='white'%3EE%3C/text%3E%3C/svg%3E">
   <style>
-    :root { --bg: #ffffff; --ink: #1d1d1f; --muted: #6e6e73; --line: #e5e5e7; --link: #0066cc; color-scheme: light; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #111112; --ink: #f2f2f4; --muted: #a1a1a6; --line: #2c2c2e; --link: #4da3ff; color-scheme: dark; } }
+    :root { --bg: #f5efe2; --glow: rgba(255, 252, 244, .75); --ink: #2b2721; --muted: #7b7266; --line: #e2d6c1; --link: #2f5d9e; --grain-blend: multiply; color-scheme: light; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1c1a16; --glow: rgba(255, 240, 210, .05); --ink: #efe8db; --muted: #a69d8f; --line: #36312a; --link: #92b6e8; --grain-blend: soft-light; color-scheme: dark; } }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; background: radial-gradient(ellipse 90% 60% at 50% 0, var(--glow), transparent 70%), var(--bg); color: var(--ink); font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .6; mix-blend-mode: var(--grain-blend); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .34 0 0 0 0 .24 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    main { position: relative; z-index: 1; }
     main { max-width: 680px; margin: 0 auto; padding: 56px 22px 64px; }
     a { color: var(--link); text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -30,6 +32,7 @@
     .req p { margin: 4px 0 0; }
     .req small { color: var(--muted); font-size: 14px; }
     footer { margin-top: 44px; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    @media print { body::before { display: none; } body { background: #fff; } }
   </style>
   <script src="analytics.js" defer></script>
 </head>
