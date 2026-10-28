@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Requirements case study — Hao (Eric) Nguyen</title>
   <meta name="description" content="Short, anonymised case study: scoping an AI monitoring MVP for a payments-infrastructure client.">
+  <link rel="canonical" href="https://ericnguyendsg88.github.io/case-study.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Requirements case study — Hao (Eric) Nguyen">
+  <meta property="og:description" content="Short, anonymised case study: scoping an AI monitoring MVP for a payments-infrastructure client.">
+  <meta property="og:url" content="https://ericnguyendsg88.github.io/case-study.html">
+  <meta property="og:image" content="https://ericnguyendsg88.github.io/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d1d1f'/%3E%3Ctext x='32' y='43' font-family='Helvetica' font-weight='bold' font-size='32' text-anchor='middle' fill='white'%3EE%3C/text%3E%3C/svg%3E">
   <style>
     :root { --bg: #ffffff; --ink: #1d1d1f; --muted: #6e6e73; --line: #e5e5e7; --link: #0066cc; color-scheme: light; }
@@ -21,10 +30,18 @@
     p { margin: 0 0 10px; }
     ul { margin: 4px 0 0; padding-left: 18px; }
     li { margin-bottom: 6px; }
-    .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .nums b { display: block; font-size: 28px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
-    .nums span { color: var(--muted); font-size: 14px; }
-    @media (max-width: 480px) { .nums { grid-template-columns: 1fr 1fr; gap: 16px; } }
+    .flow { display: flex; align-items: center; gap: 8px; }
+    .flow div { flex: 1; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    .flow b { display: block; font-size: 28px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+    .flow span { color: var(--muted); font-size: 14px; }
+    .flow i { flex: none; font-style: normal; font-size: 18px; color: var(--muted); }
+    .cap { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+    @media (max-width: 480px) {
+      .flow { flex-direction: column; align-items: stretch; gap: 0; }
+      .flow div { display: flex; align-items: baseline; gap: 10px; padding: 10px 14px; }
+      .flow b { font-size: 22px; }
+      .flow i { align-self: center; margin: 2px 0; transform: rotate(90deg); line-height: 1; }
+    }
     .req { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
     .req code { font: 500 13px ui-monospace, "SF Mono", Menlo, monospace; color: var(--muted); }
     .req p { margin: 4px 0 0; }
@@ -43,13 +60,14 @@
     <h2>Summary</h2>
     <p>The client wanted AI to watch high-value settlement: project each participant's liquidity during the day, and catch unusual transaction behaviour. There was no fixed scope, no production data and no final infrastructure design. I turned that into an MVP the client, developers and data scientists could all test against.</p>
 
-    <h2>At a glance</h2>
-    <div class="nums">
-      <div><b>3</b><span>workshops</span></div>
-      <div><b>34</b><span>requirements</span></div>
-      <div><b>68</b><span>user stories</span></div>
+    <h2>How it traces</h2>
+    <div class="flow">
+      <div><b>3</b><span>workshops</span></div><i aria-hidden="true">→</i>
+      <div><b>34</b><span>requirements</span></div><i aria-hidden="true">→</i>
+      <div><b>68</b><span>user stories</span></div><i aria-hidden="true">→</i>
       <div><b>36</b><span>UAT test cases</span></div>
     </div>
+    <p class="cap">Each requirement keeps its ID and stays linked to the functional spec. It then breaks down into user stories and UAT test cases.</p>
 
     <h2>My role</h2>
     <ul>
