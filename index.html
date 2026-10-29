@@ -62,7 +62,17 @@
     .heat i { display: block; width: var(--cell); height: var(--cell); border-radius: 2px; }
     .l0 { background: var(--line); } .l1 { background: #9ec5ff; } .l2 { background: #5a9cff; } .l3 { background: #1f6fe0; } .l4 { background: #0b3f8c; }
     footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+    /* Hover card for links that carry data-t / data-d / data-i. */
+    .tip { position: fixed; z-index: 20; width: 272px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, .14); overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(4px); transition: opacity .14s, transform .14s, visibility .14s; pointer-events: none; font-size: 13px; line-height: 1.45; }
+    .tip.show { opacity: 1; visibility: visible; transform: none; }
+    .tip img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-bottom: 1px solid var(--line); }
+    .tip div { padding: 10px 12px 11px; }
+    .tip b { display: block; font-weight: 600; font-size: 14px; color: var(--ink); }
+    .tip span { display: block; color: var(--muted); margin-top: 2px; }
+    .tip small { display: block; color: var(--muted); font-size: 12px; margin-top: 6px; opacity: .8; }
+    @media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
     @media print {
+      .tip { display: none; }
       @page { size: A4; margin: 14mm; }
       :root { --bg: #fff; --ink: #111; --muted: #555; --line: #ddd; --link: #111; }
       body { font-size: 11.5px; line-height: 1.45; }
@@ -89,11 +99,11 @@
     <p class="role">Business analyst moving into product ownership · Based in Singapore and Saigon</p>
     <div class="contact">
       <a href="mailto:ericnguyendsg@gmail.com">ericnguyendsg@gmail.com</a>
-      <a href="https://www.linkedin.com/in/hao-n-a6bb68102/">LinkedIn</a>
-      <a href="https://github.com/ericnguyendsg88">GitHub</a>
-      <a href="https://cities-wear-top.craft.me/haopnguyen">Writing samples</a>
+      <a href="https://www.linkedin.com/in/hao-n-a6bb68102/" data-t="LinkedIn" data-d="Work history, and the easiest way to message me.">LinkedIn</a>
+      <a href="https://github.com/ericnguyendsg88" data-t="GitHub profile" data-d="17 repositories, 2,124 commits in the last 12 months.">GitHub</a>
+      <a href="https://cities-wear-top.craft.me/haopnguyen" data-t="Writing samples" data-d="Selected writing, hosted on Craft.">Writing samples</a>
       <a class="no-print" href="#products">Apps</a>
-      <a class="no-print" href="Hao-Nguyen-Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a class="no-print" href="Hao-Nguyen-Resume.pdf" target="_blank" rel="noopener" data-t="Resume (PDF)" data-d="One page. Opens in a new tab.">Resume</a>
     </div>
     <nav class="jump" aria-label="Sections">
       <a href="#summary">Summary</a>
@@ -141,7 +151,7 @@
         <li>Led requirements workshops with the client's product strategy and engineering stakeholders.</li>
         <li>Kept 34 requirements linked to the FSD by ID, broken into 68 user stories and 36 UAT test cases.</li>
       </ul>
-      <p class="links"><a href="case-study.html">Requirements case study (anonymised) →</a></p>
+      <p class="links"><a href="case-study.html" data-t="Requirements case study" data-d="3 workshops → 34 requirements → 68 user stories → 36 UAT test cases. Anonymised.">Requirements case study (anonymised) →</a></p>
     </div>
     <div class="item">
       <div class="head"><b>Business Analyst Trainee, MaivenPoint Work-Study Programme</b><span>2025</span></div>
@@ -154,7 +164,7 @@
       <div>
         <div class="head"><b>SnipCam · iOS</b><span>Jun 2026 – Present</span></div>
         <p style="margin:2px 0 0">A private daily video journal. Record a 2 or 3 second snip; each day stacks into a reel. Local-first, no feed. SwiftUI, 898 commits.</p>
-        <div class="links"><a href="https://testflight.apple.com/join/RshC7Wny">TestFlight beta</a><a href="https://ericnguyendsg88.github.io/snipcam-site/">Landing page</a></div>
+        <div class="links"><a href="https://testflight.apple.com/join/RshC7Wny" data-t="SnipCam on TestFlight" data-d="Free iOS beta. Needs Apple's TestFlight app.">TestFlight beta</a><a href="https://ericnguyendsg88.github.io/snipcam-site/" data-t="SnipCam landing page" data-d="A private daily video journal. 2 or 3 seconds a day." data-i="img/prev/snipcam.jpg">Landing page</a></div>
       </div>
     </div>
     <div class="item app">
@@ -162,7 +172,7 @@
       <div>
         <div class="head"><b>AlwaysMute · macOS</b><span>2026</span></div>
         <p style="margin:2px 0 0">Keeps a Mac muted until you allow sound, and re-mutes when headphones disconnect. Swift, Core Audio.</p>
-        <div class="links"><a href="alwaysmute/">Landing page</a><a href="https://github.com/ericnguyendsg88/alwaysmute/releases/latest">Download for Mac</a><a href="https://github.com/ericnguyendsg88/alwaysmute">GitHub</a></div>
+        <div class="links"><a href="alwaysmute/" data-t="AlwaysMute landing page" data-d="Keeps a Mac muted until you allow sound." data-i="img/prev/alwaysmute.jpg">Landing page</a><a href="https://github.com/ericnguyendsg88/alwaysmute/releases/latest" data-t="AlwaysMute for Mac" data-d="Latest release on GitHub.">Download for Mac</a><a href="https://github.com/ericnguyendsg88/alwaysmute" data-t="AlwaysMute source" data-d="Swift, Core Audio. Open on GitHub.">GitHub</a></div>
       </div>
     </div>
     <div class="item app">
@@ -170,7 +180,7 @@
       <div>
         <div class="head"><b>DumpIt · iOS and Mac</b><span>2026</span></div>
         <p style="margin:2px 0 0">A brain dump journal. Write 500 words in one sitting: no backspace, no editing. SwiftUI, widgets.</p>
-        <div class="links"><a href="dumpit/">Landing page</a><a href="https://github.com/ericnguyendsg88/dumpit/releases/latest">Download for Mac</a><a href="https://github.com/ericnguyendsg88/dumpit">GitHub</a></div>
+        <div class="links"><a href="dumpit/" data-t="DumpIt landing page" data-d="Write 500 words in one sitting. No backspace, no editing." data-i="img/prev/dumpit.jpg">Landing page</a><a href="https://github.com/ericnguyendsg88/dumpit/releases/latest" data-t="DumpIt for Mac" data-d="Latest release on GitHub.">Download for Mac</a><a href="https://github.com/ericnguyendsg88/dumpit" data-t="DumpIt source" data-d="SwiftUI, widgets. Open on GitHub.">GitHub</a></div>
       </div>
     </div>
     <div class="item">
@@ -178,7 +188,7 @@
     </div>
 
     <h2 id="github">GitHub</h2>
-    <p><span id="p-total">2,124</span> commits on <span id="p-days">116</span> days in the last 12 months, across 17 repositories. <a href="https://github.com/ericnguyendsg88">View profile →</a></p>
+    <p><span id="p-total">2,124</span> commits on <span id="p-days">116</span> days in the last 12 months, across 17 repositories. <a href="https://github.com/ericnguyendsg88" data-t="GitHub profile" data-d="17 repositories, 2,124 commits in the last 12 months.">View profile →</a></p>
     <div class="hm" aria-hidden="true"><div class="heat-inner"><div class="heat-months" id="heat-months"></div><div class="heat" id="heat"></div></div></div>
 
     <h2 id="education">Education</h2>
@@ -189,7 +199,7 @@
 
     <h2 class="no-print" id="wishlist">Wishlist</h2>
     <div class="item no-print">
-      <div class="head"><b><a href="https://www.xteink.com/products/xteink-x4-classic-pocket-ereader">Xteink X4</a></b><span>On my wishlist</span></div>
+      <div class="head"><b><a href="https://www.xteink.com/products/xteink-x4-classic-pocket-ereader" data-t="Xteink X4" data-d="A wallet-sized e-ink reader that snaps onto the back of a phone.">Xteink X4</a></b><span>On my wishlist</span></div>
       <p style="margin:2px 0 0">A wallet-sized e-ink reader that snaps magnetically onto the back of a phone.</p>
     </div>
 
@@ -197,6 +207,59 @@
   </main>
   <script src="progress-data.js"></script>
   <script src="progress.js"></script>
+  <script>
+    // Hover (or keyboard focus) card with a preview for links that have data-t.
+    (function () {
+      if (!window.matchMedia("(hover: hover)").matches) return;
+      var tip = document.createElement("div");
+      tip.className = "tip"; tip.id = "tip"; tip.setAttribute("role", "tooltip");
+      document.body.appendChild(tip);
+      var timer, current;
+      function fill(a) {
+        var u = new URL(a.href, location.href), path = u.pathname.replace(/\/$/, "");
+        var where = u.protocol === "mailto:" ? "" : u.hostname + (path.length > 1 ? path : "");
+        tip.textContent = "";
+        if (a.dataset.i) { var im = document.createElement("img"); im.src = a.dataset.i; im.alt = ""; tip.appendChild(im); }
+        var box = document.createElement("div");
+        [["b", a.dataset.t], ["span", a.dataset.d], ["small", where]].forEach(function (p) {
+          if (!p[1]) return;
+          var el = document.createElement(p[0]); el.textContent = p[1]; box.appendChild(el);
+        });
+        tip.appendChild(box);
+      }
+      function place(a) {
+        var r = a.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+        var left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
+        var top = r.bottom + 10;
+        if (top + h > window.innerHeight - 12 && r.top - h - 10 > 12) top = r.top - h - 10;
+        tip.style.left = left + "px"; tip.style.top = top + "px";
+      }
+      function show(a) {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          current = a; fill(a); a.setAttribute("aria-describedby", "tip");
+          var im = tip.querySelector("img");
+          if (im && !im.complete) im.onload = function () { place(a); };
+          place(a); tip.classList.add("show");
+        }, 140);
+      }
+      function hide() {
+        clearTimeout(timer);
+        tip.classList.remove("show");
+        if (current) current.removeAttribute("aria-describedby");
+      }
+      [].forEach.call(document.querySelectorAll("a[data-t]"), function (a) {
+        if (a.dataset.i) new Image().src = a.dataset.i;
+        a.addEventListener("mouseenter", function () { show(a); });
+        a.addEventListener("focus", function () { show(a); });
+        a.addEventListener("mouseleave", hide);
+        a.addEventListener("blur", hide);
+        a.addEventListener("click", hide);
+      });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(); });
+      window.addEventListener("scroll", hide, { passive: true });
+    })();
+  </script>
   <script>
     // Mark the section link for the part of the page in view.
     (function () {
